@@ -104,7 +104,7 @@ function newton(a, x0, err)
     while true
         xk1=xk_1(xk)
         xk=xk1
-        
+        i+=1
 
         if (xk^2 - a <= err)
             println("Znaleziono $xk po $i iteracjach")
@@ -114,4 +114,4 @@ function newton(a, x0, err)
     return xk1
 end
 
-newton(2, 1, eps())
+newton(37, 1, 0.0001)
