@@ -114,4 +114,4 @@ function newton(a, x0, err)
     return xk1
 end
 
-newton(37, 1, 0.0001)
+newton(10101010101001, 1, 0.0001)
