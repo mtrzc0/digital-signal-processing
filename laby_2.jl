@@ -93,7 +93,7 @@ function sierpinski_area(N)
     return (3^N)*(sqrt(3)/4)*((2/(3^(0.25)))*(0.5^N))^2 
 end
 
-sierpinski_area(4)
+# sierpinski_area(4)
 
 #problem 2.8
 function newton(a, x0, err)
@@ -114,4 +114,32 @@ function newton(a, x0, err)
     return xk1
 end
 
-newton(10101010101001, 1, 0.0001)
+# newton(1010, 1, 0.0001)
+
+#problem 2.9
+using Plots
+function kzbieznosc()
+    xp = LinRange(-1,2,100)
+    yp = LinRange(-1,1,100)
+
+    p = xp + yp*im
+
+    zn = 0 + 0*im
+    zn1 = 0 + 0*im
+    zRe = []
+    zIm = []
+    for i in 1:10
+        zn1 = zn^2 + p[i]
+        zn = zn1
+
+        append!(zRe, real(zn1))
+        append!(zIm, imag(zn1))
+    end
+    
+    println("Realis: $zRe")
+    println("Imaginaris: $zIm")
+
+    plot(zRe, zIm)
+end
+
+kzbieznosc()
