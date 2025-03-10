@@ -119,27 +119,24 @@ end
 #problem 2.9
 using Plots
 function kzbieznosc()
-    xp = LinRange(-1,2,100)
-    yp = LinRange(-1,1,100)
+    N = 1000
+    xp = LinRange(-1,2,N)
+    yp = LinRange(-1,1,N)
 
-    p = xp + yp*im
-
-    zn = 0 + 0*im
-    zn1 = 0 + 0*im
-    zRe = []
-    zIm = []
-    for i in 1:10
-        zn1 = zn^2 + p[i]
-        zn = zn1
-
-        append!(zRe, real(zn1))
-        append!(zIm, imag(zn1))
+    Mk = zeros(Int, N, N)
+    for i in 1:N
+        for j in 1:N
+            zn = 0 + 0*im
+            k = 1
+            p = xp[i] + im * yp[j]
+            while abs(zn) < 2 && k < 200
+                zn = zn^2 + p 
+                k+=1
+            end
+            Mk[i, j] = k
+        end
     end
-    
-    println("Realis: $zRe")
-    println("Imaginaris: $zIm")
-
-    plot(zRe, zIm)
+    surface(xp, yp, Mk, color=:viridis)
 end
 
 kzbieznosc()
