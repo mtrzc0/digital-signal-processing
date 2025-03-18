@@ -136,7 +136,12 @@ function kzbieznosc()
             Mk[i, j] = k
         end
     end
-    surface(xp, yp, Mk, color=:viridis)
+    heatmap(xp, yp, Mk)
+    # surface(xp, yp, Mk, color=:viridis)
 end
 
 kzbieznosc()
+
+#problem 2.10
+
+#problem 2.11
