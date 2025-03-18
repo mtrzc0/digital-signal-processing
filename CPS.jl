@@ -34,10 +34,25 @@ end
 ###############################################################################
 # Modelowanie sygnalow                                                        #
 ###############################################################################
-ci_rectangular(t::Real; T::Real=1.0)::Real = (t, T) -> ((abs(t) != 0.5*T) ? (abs(t) < 0.5*T ? 1 : 0) : 0.5)
-ci_triangle(t::Real; T::Real=1.0)::Real = (t, T) -> ((abs(t) <= 1) ? (T-abs(t)) : 0)
+ci_rectangular(t::Real; T::Real=1.0)::Real = missing
+function ci_rectangular(t::Real; T::Real=1.0)::Real
+    return (abs(t) != 0.5*T) ? (abs(t) < 0.5*T ? 1 : 0) : 0.5
+end
+
+ci_triangle(t::Real; T::Real=1.0)::Real = missing
+function ci_triangle(t::Real; T::Real=1.0)::Real
+    return (abs(t) <= 1) ? (T-abs(t)) : 0
+end
+
 ci_literka_M(t::Real; T=1.0)::Real = missing
+function ci_literka_M(t::Real; T=1.0)
+    return (abs(t) < 0.5*T) ? 1 - abs(t) : 0
+end
+
 ci_literka_U(t::Real; T=1.0)::Real = missing
+function ci_literka_U(t::Real; T=1.0)
+    return (abs(t) < 0.5*T) ? 4*t^2 : 0
+end
 
 ramp_wave(t::Real)::Real = missing
 function ramp_wave(t::Real)::Real 

@@ -17,13 +17,69 @@ end
 #TODO
 #problem 3.3-6
 
-#problem 3.7
-function ramp_test()
-    n=1000
+#problem 3.3
+function ci_rectangular_test()
+    N=1000
+    start=-1
     stop=1
     y::Vector{Real} = []
-    t=0:(stop/n):stop
-    for i in 1:(n+1)
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
+        push!(y, CPS.ci_rectangular(t[i]))
+    end
+    plot(t, y)
+end
+# ci_rectangular_test()
+
+#problem 3.4
+function ci_triangle_test()
+    N=1000
+    start=-1
+    stop=1
+    y::Vector{Real} = []
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
+        push!(y, CPS.ci_triangle(t[i]))
+    end
+    plot(t, y)
+end
+# ci_triangle_test()
+
+#problem 3.5
+function ci_literka_M_test()
+    N=1000
+    start=-1
+    stop=1
+    y::Vector{Real} = []
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
+        push!(y, CPS.ci_literka_M(t[i]))
+    end
+    plot(t, y)
+end
+ci_literka_M_test()
+
+#problem 3.6
+function ci_literka_U_test()
+    N=1000
+    start=-1
+    stop=1
+    y::Vector{Real} = []
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
+        push!(y, CPS.ci_literka_U(t[i]))
+    end
+    plot(t, y)
+end
+# ci_literka_U_test()
+
+#problem 3.7
+function ramp_test()
+    N=1000
+    stop=1
+    y::Vector{Real} = []
+    t=0:(stop/N):stop
+    for i in 1:(N+1)
         push!(y, CPS.ramp_wave(t[i]))
     end
     plot(t, y)
@@ -32,11 +88,11 @@ end
 
 #problem 3.8
 function sawtooth_test()
-    n=1000
+    N=1000
     stop=1
     y::Vector{Real} = []
-    t=0:(stop/n):stop
-    for i in 1:(n+1)
+    t=0:(stop/N):stop
+    for i in 1:(N+1)
         push!(y, CPS.sawtooth_wave(t[i]))
     end
     plot(t, y)
@@ -45,11 +101,11 @@ end
 
 #problem 3.9
 function triangular_wave_test()
-    n=1000
+    N=1000
     stop=1
     y::Vector{Real} = []
-    t=0:(stop/n):stop
-    for i in 1:(n+1)
+    t=0:(stop/N):stop
+    for i in 1:(N+1)
         push!(y, CPS.triangular_wave(t[i]))
     end
     plot(t, y)
@@ -58,11 +114,11 @@ end
 
 #problem 3.10
 function square_wave_test()
-    n=1000
+    N=1000
     stop=1
     y::Vector{Real} = []
-    t=0:(stop/n):stop
-    for i in 1:(n+1)
+    t=0:(stop/N):stop
+    for i in 1:(N+1)
         push!(y, CPS.square_wave(t[i]))
     end
     plot(t, y)
