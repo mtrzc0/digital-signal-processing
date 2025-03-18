@@ -50,10 +50,14 @@ function sawtooth_wave(t::Real)::Real
 end
 
 triangular_wave(t::Real)::Real = missing
-function_wave(t::Real)
-    return abs(t)
+function triangular_wave(t::Real)
+    return 4*(4*abs(t - floor(t+ 3/4)+1/4)-1)
 end
+
 square_wave(t::Real)::Real = missing
+function square_wave(t::Real)
+    return (4*floor(t)-2*floor(2*t)+1)
+end
 # pulse_wave(t::Real; D::Real=0.2)::Real = missing
 
 function impuse_repeater(g::Function, t0::Real, t1::Real)::Function 
