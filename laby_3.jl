@@ -18,6 +18,9 @@ end
 #problem 3.3-6
 
 #problem 3.3
+#problem 3.4
+
+#problem 3.5
 function ci_rectangular_test()
     N=1000
     start=-1
@@ -31,7 +34,7 @@ function ci_rectangular_test()
 end
 # ci_rectangular_test()
 
-#problem 3.4
+#problem 3.6
 function ci_triangle_test()
     N=1000
     start=-1
@@ -45,7 +48,7 @@ function ci_triangle_test()
 end
 # ci_triangle_test()
 
-#problem 3.5
+#problem 3.7
 function ci_literka_M_test()
     N=1000
     start=-1
@@ -57,9 +60,9 @@ function ci_literka_M_test()
     end
     plot(t, y)
 end
-ci_literka_M_test()
+# ci_literka_M_test()
 
-#problem 3.6
+#problem 3.8
 function ci_literka_U_test()
     N=1000
     start=-1
@@ -73,7 +76,7 @@ function ci_literka_U_test()
 end
 # ci_literka_U_test()
 
-#problem 3.7
+#problem 3.9
 function ramp_test()
     N=1000
     stop=1
@@ -86,7 +89,7 @@ function ramp_test()
 end
 # ramp_test()
 
-#problem 3.8
+#problem 3.10
 function sawtooth_test()
     N=1000
     stop=1
@@ -99,7 +102,7 @@ function sawtooth_test()
 end
 # sawtooth_test()
 
-#problem 3.9
+#problem 3.11
 function triangular_wave_test()
     N=1000
     stop=1
@@ -112,7 +115,7 @@ function triangular_wave_test()
 end
 # triangular_wave_test()
 
-#problem 3.10
+#problem 3.12
 function square_wave_test()
     N=1000
     stop=1
@@ -123,5 +126,7 @@ function square_wave_test()
     end
     plot(t, y)
 end
-
 # square_wave_test()
+
+#problem 3.13
+#problem 3.14

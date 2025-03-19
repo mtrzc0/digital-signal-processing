@@ -46,12 +46,12 @@ end
 
 ci_literka_M(t::Real; T=1.0)::Real = missing
 function ci_literka_M(t::Real; T=1.0)
-    return (abs(t) < 0.5*T) ? 1 - abs(t) : 0
+    return (abs(t) < 0.5*T) ? 0.2*(abs(10*t)) : 0
 end
 
 ci_literka_U(t::Real; T=1.0)::Real = missing
 function ci_literka_U(t::Real; T=1.0)
-    return (abs(t) < 0.5*T) ? 4*t^2 : 0
+    return (abs(t) < 0.5*T) ? 4*t^2 : 1
 end
 
 ramp_wave(t::Real)::Real = missing
