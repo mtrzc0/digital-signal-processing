@@ -71,9 +71,13 @@ end
 
 square_wave(t::Real)::Real = missing
 function square_wave(t::Real)
-    return (4*floor(t)-2*floor(2*t)+1)
+    return 1*(2*floor(t)-floor(2*t)+1)
 end
-# pulse_wave(t::Real; D::Real=0.2)::Real = missing
+
+pulse_wave(t::Real; D::Real=0.2)::Real = missing
+function pulse_wave(t::Real; D::Real=0.5)::Real 
+    return D + ((abs(t)< floor(t) + D) ? 1 : 0) 
+end
 
 function impuse_repeater(g::Function, t0::Real, t1::Real)::Function 
     missing

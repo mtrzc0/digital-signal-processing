@@ -149,4 +149,16 @@ end
 # square_wave_test()
 
 #problem 3.13
+function pulse_wave_test()
+    N=1000
+    stop=1
+    y::Vector{Real} = []
+    t=0:(stop/N):stop
+    for i in 1:(N+1)
+        push!(y, CPS.pulse_wave(t[i]))
+    end
+    plot(t, y)
+end
+pulse_wave_test()
+
 #problem 3.14
