@@ -1,6 +1,7 @@
 include("CPS.jl")
 
 using Plots
+using Random
 
 #problem 3.1
 function vector256(fs, ts, A, f, phase)
@@ -14,11 +15,30 @@ function vectorN(fs, A, f, phase, ts, te)
 end
 # vectorN(2048, 0.25, pi/2, pi, 5, 10)
 
-#TODO
-#problem 3.3-6
-
 #problem 3.3
+function white_noise()
+    return [(1/sqrt(2))*randn() for t in 1:1000]
+end
+
+function white_noise_test()
+    t = [1:1000]
+    plot(t, white_noise())
+end
+# white_noise_test()
+
 #problem 3.4
+function white_noise_complex()
+    return [(1/sqrt(2))*(randn() + im* randn()) for t in 1:1000]
+end
+
+function white_noise_complex_test()
+    t = [1:1000]
+    noise = white_noise_complex() 
+    ReNoise = real(noise)
+    ImgNoise = imag(noise)
+    plot(t, ReNoise, ImgNoise)
+end
+white_noise_complex_test()
 
 #problem 3.5
 function ci_rectangular_test()
