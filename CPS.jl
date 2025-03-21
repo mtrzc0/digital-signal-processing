@@ -1,5 +1,7 @@
 module CPS
 
+using LinearAlgebra
+
 const author = Dict(
     "index" => "419399",
     "name" => "Mateusz Trzeciak",
@@ -15,10 +17,11 @@ function fseries(f::Function, T, N, nf)
     n = 1:nf
 
     a0 = sum(f.(t)) * dt / T
-    an = 2 * sum(f.(t) .* cos.(n' .* (2π / T) .* t) .* dt, dims=1) / T
-    bn = 2 * sum(f.(t) .* sin.(n' .* (2π / T) .* t) .* dt, dims=1) / T
+    an = N * (2 * sum(f.(t) .* cos.(n' .* (2π / T) .* t) .* dt, dims=1) / T)
+    bn = N * (2 * sum(f.(t) .* sin.(n' .* (2π / T) .* t) .* dt, dims=1) / T)
 
     F(t) = a0 + sum((an .* cos.(n' .* (2π / T) * t) .* dt) + (bn .* sin.(n' .* (2π / T) * t) .* dt))
+
     return F
 end
 
@@ -110,7 +113,10 @@ function sawtooth_wave_bl(t; A=1.0, T=1.0, band=20.0)
 end
 
 function triangular_wave_bl(t; A=1.0, T=1.0, band=20.0)
-    missing
+    N=1000
+    f(x) = CPS.triangular_wave(x)
+    F = CPS.fseries(f, T, N, band)
+    return F(t)
 end
 
 function square_wave_bl(t; A=1.0, T=1.0, band=20.0)
@@ -129,6 +135,7 @@ end
 function rand_siganl_bl(f1::Real, f2::Real)::Function
     missing
 end
+
 
 
 

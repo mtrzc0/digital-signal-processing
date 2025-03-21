@@ -2,6 +2,7 @@ include("CPS.jl")
 
 using Plots
 using Random
+using LinearAlgebra
 
 #problem 3.1
 function vector256(fs, ts, A, f, phase)
@@ -199,4 +200,18 @@ function sawtooth_wave_bl_test()
     end
     plot(t, y)
 end
-sawtooth_wave_bl_test()
+# sawtooth_wave_bl_test()
+
+#problem 3.17
+function triangular_wave_bl_test()
+    N=1000
+    start=-1
+    stop=1
+    y::Vector{Real} = []
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
+        push!(y, CPS.triangular_wave_bl(t[i]))
+    end
+    plot(t, y)
+end
+triangular_wave_bl_test()
