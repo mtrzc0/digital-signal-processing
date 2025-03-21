@@ -9,24 +9,17 @@ const author = Dict(
 ###############################################################################
 #  Narzedzia                                                                  #
 ###############################################################################
-function fseries(f::Function, t, T, N, nf)
-    dt = T / N  # Time step
+function fseries(f::Function, T, N, nf)
+    t = range(0, T; length=N)
+    dt = T / N
+    n = 1:nf
 
-    n = 1:nf  # Harmonic indices
-
-    a0 = sum(f.(t)) * dt / T  # DC component
-
-    # Ensure proper broadcasting: `t` remains a column vector, `n` is a row vector
+    a0 = sum(f.(t)) * dt / T
     an = 2 * sum(f.(t) .* cos.(n' .* (2π / T) .* t) .* dt, dims=1) / T
     bn = 2 * sum(f.(t) .* sin.(n' .* (2π / T) .* t) .* dt, dims=1) / T
 
-    g(t) = sum((an .* cos.(n' .* (2π / T) * t) .* dt) + (bn .* sin.(n' .* (2π / T) * t) .* dt))
-
-    y = []
-    for time in t
-        append!(y, g(time))
-    end
-    return y
+    F(t) = a0 + sum((an .* cos.(n' .* (2π / T) * t) .* dt) + (bn .* sin.(n' .* (2π / T) * t) .* dt))
+    return F
 end
 
 ###############################################################################

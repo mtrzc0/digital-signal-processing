@@ -108,7 +108,7 @@ function ramp_test()
     end
     plot(t, y)
 end
-ramp_test()
+# ramp_test()
 
 #problem 3.10
 function sawtooth_test()
@@ -189,14 +189,14 @@ end
 # ramp_bl_test()
 
 function fseries_test()
-    N = 1000  # Number of sample points
-    T = 1  # Period
-    nf = 3 # Number of harmonics
+    N = 1000
+    T = 1
+    nf = 5
 
-    f(x) = sin(2π*x) + 0.5 * sin(4π*x)  # Example function
-    t = range(0, T; length=N)  # Time vector
-    fs = CPS.fseries(f, t, T, N, nf)
+    f(x) = CPS.ramp_wave(x)
+    F = CPS.fseries(f, T, N, nf)
 
-    plot(t, fs)
+    t = -3:0.1:3
+    plot(t, CPS.impulse_repeater(F, -2, 3))
 end
 fseries_test()
