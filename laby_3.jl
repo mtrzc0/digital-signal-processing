@@ -99,23 +99,25 @@ end
 #problem 3.9
 function ramp_test()
     N=1000
-    stop=1
+    start=-2
+    stop=2
     y::Vector{Real} = []
-    t=0:(stop/N):stop
-    for i in 1:(N+1)
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
         push!(y, CPS.ramp_wave(t[i]))
     end
     plot(t, y)
 end
-# ramp_test()
+ramp_test()
 
 #problem 3.10
 function sawtooth_test()
     N=1000
-    stop=1
+    start=-2
+    stop=2
     y::Vector{Real} = []
-    t=0:(stop/N):stop
-    for i in 1:(N+1)
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
         push!(y, CPS.sawtooth_wave(t[i]))
     end
     plot(t, y)
@@ -125,10 +127,11 @@ end
 #problem 3.11
 function triangular_wave_test()
     N=1000
-    stop=1
+    start=-2
+    stop=2
     y::Vector{Real} = []
-    t=0:(stop/N):stop
-    for i in 1:(N+1)
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
         push!(y, CPS.triangular_wave(t[i]))
     end
     plot(t, y)
@@ -138,9 +141,10 @@ end
 #problem 3.12
 function square_wave_test()
     N=1000
-    stop=1
+    start=-2
+    stop=2
     y::Vector{Real} = []
-    t=0:(stop/N):stop
+    t=start:(stop/N):stop
     for i in 1:(N+1)
         push!(y, CPS.square_wave(t[i]))
     end
@@ -159,6 +163,36 @@ function pulse_wave_test()
     end
     plot(t, y)
 end
-pulse_wave_test()
+# pulse_wave_test()
 
 #problem 3.14
+function impulse_repeater_test()
+    t = -10:0.1:10
+    f = t -> exp.(t)
+    plot(t, CPS.impulse_repeater(f, -2, 3))
+end
+# impulse_repeater_test()
+
+#problem 3.15
+function ramp_bl_test()
+    N=1000
+    start=-5
+    stop=5
+    y::Vector{Real} = []
+    t=start:(stop/N):stop
+
+    for i in 1:(2*N+1)
+        push!(y, CPS.ramp_wave_bl(t[i]))
+    end
+    plot(t, y)
+end
+# ramp_bl_test()
+
+function fseries_test()
+    N=1000
+    f = t -> t
+    T=1
+    nf=5
+    return CPS.fseries(f, T, N, nf)
+end
+fseries_test()

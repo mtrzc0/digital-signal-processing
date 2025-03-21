@@ -7,6 +7,22 @@ const author = Dict(
 )
 
 
+###############################################################################
+#  Narzedzia                                                                  #
+###############################################################################
+function fseries(f::Function, T, N, nf)
+    t = range(0, T; length=N)  # Time vector
+    dt = T / N  # Time step
+
+    n = 1:nf  # Harmonic indices
+
+    a0 = sum(f.(t)) * dt / T  # DC component
+    an = 2 * sum(f.(t) .* cos.(n .* (2π / T) .* t') .* dt, dims=2) / T  # Cosine coefficients
+    bn = 2 * sum(f.(t) .* sin.(n .* (2π / T) .* t') .* dt, dims=2) / T  # Sine coefficients
+
+    return vcat(a0, an[:], bn[:])  # Concatenating all coefficients into a single vector
+end
+
 
 ###############################################################################
 # Parametry sygnalow                                                          #
@@ -28,8 +44,6 @@ end
 function running_power(x::AbstractVector, M::Integer)::Vector
      missing
 end
-
-
 
 ###############################################################################
 # Modelowanie sygnalow                                                        #
@@ -56,12 +70,12 @@ end
 
 ramp_wave(t::Real)::Real = missing
 function ramp_wave(t::Real)::Real 
-    return abs(2*(1-(t%1)))
+    return t>0 ? t%1 : t%1 + 1
 end
 
 sawtooth_wave(t::Real)::Real = missing
 function sawtooth_wave(t::Real)::Real 
-    return abs(2*(t%1))
+    return t>0 ? 1-t%1 : (1-t)%1
 end
 
 triangular_wave(t::Real)::Real = missing
@@ -79,12 +93,12 @@ function pulse_wave(t::Real; D::Real=0.5)::Real
     return D + ((abs(t)< floor(t) + D) ? 1 : 0) 
 end
 
-function impuse_repeater(g::Function, t0::Real, t1::Real)::Function 
-    missing
+function impulse_repeater(g::Function, t0::Real, t1::Real)::Function 
+    return t -> g(mod(t-t0, t1-t0)+t0)
 end
 
 function ramp_wave_bl(t; A=1.0, T=1.0, band=20.0)
-    missing
+    # return abs(1/T) < band ? A*ramp_wave(t) : 0
 end
 
 function sawtooth_wave_bl(t; A=1.0, T=1.0, band=20.0)
