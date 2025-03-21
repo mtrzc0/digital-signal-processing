@@ -189,10 +189,14 @@ end
 # ramp_bl_test()
 
 function fseries_test()
-    N=1000
-    f = t -> t
-    T=1
-    nf=5
-    return CPS.fseries(f, T, N, nf)
+    N = 1000  # Number of sample points
+    T = 1  # Period
+    nf = 3 # Number of harmonics
+
+    f(x) = sin(2π*x) + 0.5 * sin(4π*x)  # Example function
+    t = range(0, T; length=N)  # Time vector
+    fs = CPS.fseries(f, t, T, N, nf)
+
+    plot(t, fs)
 end
 fseries_test()

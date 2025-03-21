@@ -6,23 +6,28 @@ const author = Dict(
     "email" => "trzeciakmat@student.agh.edu.pl",
 )
 
-
 ###############################################################################
 #  Narzedzia                                                                  #
 ###############################################################################
-function fseries(f::Function, T, N, nf)
-    t = range(0, T; length=N)  # Time vector
+function fseries(f::Function, t, T, N, nf)
     dt = T / N  # Time step
 
     n = 1:nf  # Harmonic indices
 
     a0 = sum(f.(t)) * dt / T  # DC component
-    an = 2 * sum(f.(t) .* cos.(n .* (2π / T) .* t') .* dt, dims=2) / T  # Cosine coefficients
-    bn = 2 * sum(f.(t) .* sin.(n .* (2π / T) .* t') .* dt, dims=2) / T  # Sine coefficients
 
-    return vcat(a0, an[:], bn[:])  # Concatenating all coefficients into a single vector
+    # Ensure proper broadcasting: `t` remains a column vector, `n` is a row vector
+    an = 2 * sum(f.(t) .* cos.(n' .* (2π / T) .* t) .* dt, dims=1) / T
+    bn = 2 * sum(f.(t) .* sin.(n' .* (2π / T) .* t) .* dt, dims=1) / T
+
+    g(t) = sum((an .* cos.(n' .* (2π / T) * t) .* dt) + (bn .* sin.(n' .* (2π / T) * t) .* dt))
+
+    y = []
+    for time in t
+        append!(y, g(time))
+    end
+    return y
 end
-
 
 ###############################################################################
 # Parametry sygnalow                                                          #
