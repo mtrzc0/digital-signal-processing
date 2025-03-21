@@ -96,11 +96,17 @@ function impulse_repeater(g::Function, t0::Real, t1::Real)::Function
 end
 
 function ramp_wave_bl(t; A=1.0, T=1.0, band=20.0)
-    # return abs(1/T) < band ? A*ramp_wave(t) : 0
+    N=1000
+    f(x) = CPS.ramp_wave(x)
+    F = CPS.fseries(f, T, N, band)
+    return F(t)
 end
 
 function sawtooth_wave_bl(t; A=1.0, T=1.0, band=20.0)
-    missing
+    N=1000
+    f(x) = CPS.sawtooth_wave(x)
+    F = CPS.fseries(f, T, N, band)
+    return F(t)
 end
 
 function triangular_wave_bl(t; A=1.0, T=1.0, band=20.0)
