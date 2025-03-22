@@ -139,8 +139,9 @@ function impulse_repeater_bl(g::Function, t0::Real, t1::Real, band::Real)::Funct
     return CPS.impulse_repeater(fseries(g, T, N, band), t0, t1)
 end
 
+#TODO
 function rand_siganl_bl(f1::Real, f2::Real)::Function
-    missing
+    B=f2-f1
 end
 
 kronecker(n::Integer)::Real = missing

@@ -250,4 +250,12 @@ function impulse_repeater_bl_test()
     f = x -> sin.(-1*x^2)
     plot(t, CPS.impulse_repeater_bl(f, 0, 4, 4))
 end
-impulse_repeater_bl_test()
+# impulse_repeater_bl_test()
+
+#TODO
+#problem 3.21
+# function rand_siganl_bl_test()
+#     t = -10:0.1:10
+#     plot(t, CPS.rand_siganl_bl(20, 10))
+# end
+# rand_siganl_bl_test()
