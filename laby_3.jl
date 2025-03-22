@@ -247,8 +247,7 @@ end
 #problem 3.20
 function impulse_repeater_bl_test()
     t = -10:0.1:10
-    f = x -> exp.(x)
-    F = CPS.impuse_repeater_bl(f, 0, 4, 4)
-    plot(t, t -> F(t))
+    f = x -> sin.(-1*x^2)
+    plot(t, CPS.impulse_repeater_bl(f, 0, 4, 4))
 end
 impulse_repeater_bl_test()

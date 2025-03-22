@@ -133,11 +133,10 @@ function pulse_wave_bl(t; D=0.2, A=1.0, T=1.0, band=20.0)
     return F(t)
 end
 
-function impuse_repeater_bl(g::Function, t0::Real, t1::Real, band::Real)::Function
+function impulse_repeater_bl(g::Function, t0::Real, t1::Real, band::Real)::Function
     N=1000
     T=t1-t0
-    F = CPS.fseries(CPS.impulse_repeater(g, t0, t1), T, N, band)
-    return F
+    return CPS.impulse_repeater(fseries(g, T, N, band), t0, t1)
 end
 
 function rand_siganl_bl(f1::Real, f2::Real)::Function
