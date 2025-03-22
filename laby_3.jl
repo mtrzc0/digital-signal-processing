@@ -169,7 +169,7 @@ end
 #problem 3.14
 function impulse_repeater_test()
     t = -10:0.1:10
-    f = t -> exp.(t)
+    f = x -> exp.(x)
     plot(t, CPS.impulse_repeater(f, -2, 3))
 end
 # impulse_repeater_test()
@@ -214,4 +214,41 @@ function triangular_wave_bl_test()
     end
     plot(t, y)
 end
-triangular_wave_bl_test()
+# triangular_wave_bl_test()
+
+#problem 3.18
+function square_wave_bl_test()
+    N=1000
+    start=-1
+    stop=1
+    y::Vector{Real} = []
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
+        push!(y, CPS.square_wave_bl(t[i]))
+    end
+    plot(t, y)
+end
+# square_wave_bl_test()
+
+#problem 3.19
+function pulse_wave_bl_test()
+    N=1000
+    start=-1
+    stop=1
+    y::Vector{Real} = []
+    t=start:(stop/N):stop
+    for i in 1:(2*N+1)
+        push!(y, CPS.pulse_wave_bl(t[i]))
+    end
+    plot(t, y)
+end
+# pulse_wave_bl_test()
+
+#problem 3.20
+function impulse_repeater_bl_test()
+    t = -10:0.1:10
+    f = x -> exp.(x)
+    F = CPS.impuse_repeater_bl(f, 0, 4, 4)
+    plot(t, t -> F(t))
+end
+impulse_repeater_bl_test()

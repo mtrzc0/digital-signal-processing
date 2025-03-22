@@ -90,7 +90,7 @@ function square_wave(t::Real)
 end
 
 pulse_wave(t::Real; D::Real=0.2)::Real = missing
-function pulse_wave(t::Real; D::Real=0.5)::Real 
+function pulse_wave(t::Real, D::Real=0.2)::Real 
     return D + ((abs(t)< floor(t) + D) ? 1 : 0) 
 end
 
@@ -100,14 +100,14 @@ end
 
 function ramp_wave_bl(t; A=1.0, T=1.0, band=20.0)
     N=1000
-    f(x) = CPS.ramp_wave(x)
+    f(x) = A .* CPS.ramp_wave(x)
     F = CPS.fseries(f, T, N, band)
     return F(t)
 end
 
 function sawtooth_wave_bl(t; A=1.0, T=1.0, band=20.0)
     N=1000
-    f(x) = CPS.sawtooth_wave(x)
+    f(x) = A .* CPS.sawtooth_wave(x)
     F = CPS.fseries(f, T, N, band)
     return F(t)
 end
@@ -120,24 +120,29 @@ function triangular_wave_bl(t; A=1.0, T=1.0, band=20.0)
 end
 
 function square_wave_bl(t; A=1.0, T=1.0, band=20.0)
-    missing
+    N=1000
+    f(x) = A .* CPS.square_wave(x)
+    F = CPS.fseries(f, T, N, band)
+    return F(t)
 end
 
-# function pulse_wave_bl(t; Ď=0.2, A=1.0, T=1.0, band=20.0)
-#     missing
-# end
-
+function pulse_wave_bl(t; D=0.2, A=1.0, T=1.0, band=20.0)
+    N=1000
+    f(x) = A .* CPS.pulse_wave(x, D)
+    F = CPS.fseries(f, T, N, band)
+    return F(t)
+end
 
 function impuse_repeater_bl(g::Function, t0::Real, t1::Real, band::Real)::Function
-    missing
+    N=1000
+    T=t1-t0
+    F = CPS.fseries(CPS.impulse_repeater(g, t0, t1), T, N, band)
+    return F
 end
 
 function rand_siganl_bl(f1::Real, f2::Real)::Function
     missing
 end
-
-
-
 
 kronecker(n::Integer)::Real = missing
 heaviside(n::Integer)::Real = missing
