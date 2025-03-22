@@ -81,7 +81,7 @@ end
 
 triangular_wave(t::Real)::Real = missing
 function triangular_wave(t::Real)
-    return 4*(4*abs(t - floor(t+ 3/4)+1/4)-1)
+    return 4*abs(t - floor(t+ 3/4)+1/4)-1
 end
 
 square_wave(t::Real)::Real = missing
@@ -114,7 +114,7 @@ end
 
 function triangular_wave_bl(t; A=1.0, T=1.0, band=20.0)
     N=1000
-    f(x) = CPS.triangular_wave(x)
+    f(x) = A .* CPS.triangular_wave(x)
     F = CPS.fseries(f, T, N, band)
     return F(t)
 end
