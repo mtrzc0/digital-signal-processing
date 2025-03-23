@@ -155,6 +155,9 @@ end
 
 # Dyskretne okna czasowe
 rect(N::Integer) = missing
+function rect(N::Integer)
+    return N>0 ? ones(N) : 0
+end
 triang(N::Integer) = missing
 hanning(N::Integer) = missing
 hamming(N::Integer) = missing
