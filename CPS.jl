@@ -145,7 +145,13 @@ function rand_siganl_bl(f1::Real, f2::Real)::Function
 end
 
 kronecker(n::Integer)::Real = missing
+function kronecker(n::Integer)::Real
+    return (n==0) ? 1 : 0
+end
 heaviside(n::Integer)::Real = missing
+function heaviside(n::Integer)::Real
+    return (n>=1) ? 1 : 0
+end
 
 # Dyskretne okna czasowe
 rect(N::Integer) = missing
