@@ -217,4 +217,132 @@ function kaiser(N; Î˛=0, K=20)
     missing
 end
 
+###############################################################################
+# Próbkowanie i kwantyzacja                                                   #
+###############################################################################
+
+quantize(L::AbstractVector)::Function = missing
+SQNR(N::Integer)::Real = missing
+SNR(Psignal::Real, Pnoise::Real)::Real = missing
+
+function interpolate(
+    m::AbstractVector,
+    s::AbstractVector,
+    kernel::Function = sinc
+)::Function
+    missing
+end
+
+###############################################################################
+# Obliczanie dyskretnej transformacji Fouriera                                #
+###############################################################################
+
+function dtft(f::Real; signal::Vector, fs::Real)
+    missing
+end
+
+function dft(x::Vector)::Vector
+    missing
+end
+
+function idft(x::Vector)::Vector
+    missing
+end
+
+function goertzel(x::Vector, k::Integer)::Complex
+    missing
+end
+
+function recursiv_dft(N::Integer)::Function
+    missing
+end
+
+function exp_recursiv_dft(N::Integer, a::Number)::Function
+    missing
+end
+
+function cos_recursiv_dft(N::Integer, a::Vector)::Function
+    missing
+end
+
+function rdft(x::Vector)::Vector
+    missing
+end
+
+function irdft(X::Vector, N::Integer)::Vector
+    missing
+end
+
+function fft_radix2_dit_r(x::Vector)::Vector
+    missing
+end
+
+function ifft_radix2_dif_r(x::Vector)::Vector
+    missing
+end
+
+function fft(x::Vector)::Vector
+    missing
+end
+
+function ifft(x::Vector)::Vector
+    missing
+end
+
+function rfft(x::Vector)::Vector
+    missing
+end
+
+function irfft(x::Vector, N::Integer)::Vector
+    missing
+end
+
+###############################################################################
+# Analiza częstotliwościowa sygnałów dyskretnych                              #
+###############################################################################
+
+fftfreq(N::Integer, fs::Real) = missing
+rfftfreq(N::Integer, fs::Real) = missing
+
+amplitude_spectrum(x::Vector, w::Vector = rect(length(x)))::Vector = missing
+power_spectrum(x::Vector, w::Vector = rect(length(x)))::Vector = missing
+psd(x::Vector, w::Vector = rect(length(x)), fs::Real = 1.0)::Vector = missing
+
+function welch(x::Vector, w::Vector = rect(length(x)), L::Integer = 1, fs::Real = 1.0)::Vector
+    missing
+end
+
+# Modelowanie sygnałów niestacjonarnych
+chirp_lin(t, f0, f1, T, φ = 0) = missing
+chirp_exp(t, f0, f1, T, φ = 0) = missing
+
+function stft(x::Vector, w::Vector, L::Integer)::Matrix
+    missing
+end
+
+function istft(
+    X::AbstractMatrix{<:Complex},
+    w::AbstractVector{<:Real},
+    L::Integer = 0,
+    N::Integer = length(w);
+)::AbstractVector{<:Real}
+    missing
+end
+
+"""
+Inputs:
+    * X - spectrogram
+    * w - STFT window
+    * L - STFT overlap
+    * N - number of Griffin-Lim iterations
+
+Outputs:
+    * Y - estimated STFT representation (amplitude + phase)
+    * loss_values - a vector with reconstruction loss values (optional, recommended for dev)
+"""
+function phase_retrieval(X, w, L, N)
+    missing, missing
+end
+
+
 end
