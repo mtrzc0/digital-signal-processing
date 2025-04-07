@@ -29,21 +29,63 @@ end
 # Parametry sygnalow                                                          #
 ###############################################################################
 mean(x::AbstractVector)::Number = missing
+function mean(x::AbstractVector)::Number
+    return sum(x)/length(x)
+end
 peak2peak(x::AbstractVector)::Real = missing
+function peak2peak(x::AbstractVector)::Real 
+    return max(x)-min(x)
+end
 energy(x::AbstractVector)::Real = missing
+function energy(x::AbstractVector)::Real
+    return sum(x .* x)
+end
 power(x::AbstractVector)::Real = missing
+function power(x::AbstractVector)::Real 
+    return sum(x .* x)/length(x)
+end
 rms(x::AbstractVector)::Real = missing
+function rms(x::AbstractVector)::Real 
+    return sqrt(sum(x .* x)/length(x))
+end
 
 function running_mean(x::AbstractVector, M::Integer)::Vector
-    missing
+    x_start=M+1
+    x_stop=length(x) - M
+    index=x_start:x_stop
+
+    running::Vector{Float64} = []
+    for i in index
+        append!(running, mean(x[(i-M):(i+M)]))
+    end
+
+    return running
 end
 
 function running_energy(x::AbstractVector, M::Integer)::Vector
-    missing
+    x_start=M+1
+    x_stop=length(x) - M
+    index=x_start:x_stop
+
+    running::Vector{Float64} = []
+    for i in index
+        append!(running, energy(x[(i-M):(i+M)]))
+    end
+
+    return running
 end
 
 function running_power(x::AbstractVector, M::Integer)::Vector
-     missing
+    x_start=M+1
+    x_stop=length(x) - M
+    index=x_start:x_stop
+
+    running::Vector{Float64} = []
+    for i in index
+        append!(running, power(x[(i-M):(i+M)]))
+    end
+
+    return running
 end
 
 ###############################################################################
@@ -158,7 +200,11 @@ rect(N::Integer) = missing
 function rect(N::Integer)
     return N>0 ? ones(N) : 0
 end
+
 triang(N::Integer) = missing
+function triang(N::Integer)
+end
+
 hanning(N::Integer) = missing
 hamming(N::Integer) = missing
 blackman(N::Integer) = missing
