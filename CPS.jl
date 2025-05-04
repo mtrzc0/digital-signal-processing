@@ -222,8 +222,19 @@ end
 ###############################################################################
 
 quantize(L::AbstractVector)::Function = missing
+function quantize(L::AbstractVector)::Function
+    return x -> L[argmin(abs.(x .- L))]
+end
+
 SQNR(N::Integer)::Real = missing
+function SQNR(N::Integer)::Real
+    return 20*log10(2^N)
+end
+
 SNR(Psignal::Real, Pnoise::Real)::Real = missing
+function SNR(Psignal::Real, Pnoise::Real)::Real
+    return Psignal/Pnoise
+end
 
 function interpolate(
     m::AbstractVector,
@@ -344,5 +355,40 @@ function phase_retrieval(X, w, L, N)
     missing, missing
 end
 
+###############################################################################
+# Systemy dyskretne                                                           #
+###############################################################################
+
+function lti_amp(f::Real; b::Vector, a::Vector)::Real
+    missing
+end
+
+function lti_phase(f::Real; b::Vector, a::Vector)::Real
+    missing
+end
+
+function conv(f::Vector, g::Vector)::Vector
+    missing
+end
+
+function fast_conv(f::Vector, g::Vector)::Vector
+    missing
+end
+
+function overlap_add(f::Vector, g::Vector, L::Integer)::Vector
+    missing
+end
+
+function overlap_save(f::Vector, g::Vector, L::Integer)::Vector
+    missing
+end
+
+function lti_filter(b::Vector, a::Vector, x::Vector)::Vector
+    missing
+end
+
+function filtfilt(b::Vector, a::Vector, x::Vector)::Vector
+    missing
+end
 
 end

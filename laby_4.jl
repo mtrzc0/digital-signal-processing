@@ -32,4 +32,10 @@ function running_power_test()
     println(running_mean)
     println(length(running_mean))
 end
-running_power_test()
+# running_power_test()
+
+#problem 5.1
+function quantize_test()
+    L=[1:10]
+    CPS.quantize(L)
+end
