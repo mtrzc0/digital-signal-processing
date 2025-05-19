@@ -250,7 +250,7 @@ function impulse_repeater_bl_test()
     f = x -> sin.(-1*x^2)
     plot(t, CPS.impulse_repeater_bl(f, 0, 4, 4))
 end
-# impulse_repeater_bl_test()
+impulse_repeater_bl_test()
 
 #TODO
 #problem 3.21

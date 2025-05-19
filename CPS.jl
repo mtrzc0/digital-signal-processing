@@ -248,16 +248,37 @@ end
 # Obliczanie dyskretnej transformacji Fouriera                                #
 ###############################################################################
 
-function dtft(f::Real; signal::Vector, fs::Real)
-    missing
+function dtft(f::Real, signal::Vector, fs::Real)
+    N = length(signal)
+    w = zeros(ComplexF64,N)
+    fd = f/fs
+    for i in 0:(N-1)
+        w[i+1] = exp(-im*2*pi*fd*i)
+    end
+    return w.*signal
 end
 
 function dft(x::Vector)::Vector
-    missing
+    N = length(x)
+    w = zeros(ComplexF64,(N, N))
+    for i in 0:(N-1)
+        for j in 0:(N-1)
+            w[i+1, j+1] = exp(-im*2*pi/N)^(i*j)
+        end
+    end
+    return w*x
 end
 
 function idft(x::Vector)::Vector
-    missing
+    N = length(x)
+    w = zeros(ComplexF64,(N, N))
+    for i in 0:(N-1)
+        for j in 0:(N-1)
+            w[i+1, j+1] = exp(-im*2*pi/N)^(i*j)
+        end
+    end
+    #bez dzielenia przez N
+    return inv(w)*x
 end
 
 function goertzel(x::Vector, k::Integer)::Complex
