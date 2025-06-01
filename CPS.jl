@@ -196,24 +196,17 @@ function heaviside(n::Integer)::Real
 end
 
 # Dyskretne okna czasowe
-rect(N::Integer) = missing
-function rect(N::Integer)
-    return N>0 ? ones(N) : 0
-end
+rect(N::Integer) = N>0 ? ones(N) : 0
+triang(N::Integer) = [1-abs(n/(N+1)) for n in -N:N] 
+hanning(N::Integer) = [0.5 + 0.5cospi(2n/(2N+1)) for n in -N:N] 
+hamming(N::Integer) = [0.54 + 0.46cospi(2n/(2N+1)) for n in -N:N]
+blackman(N::Integer) = [0.54 + 0.46cospi(2n/(2N+1)) + 0.08cospi(4n/(2N+1)) for n in -N:N]
 
-triang(N::Integer) = missing
-function triang(N::Integer)
-end
-
-hanning(N::Integer) = missing
-hamming(N::Integer) = missing
-blackman(N::Integer) = missing
-
-function chebwin(N; Îą=-100)
+function chebwin(N; I=-100)
     missing
 end
 
-function kaiser(N; Î˛=0, K=20)
+function kaiser(N; I=0, K=20)
     missing
 end
 
@@ -409,6 +402,59 @@ function lti_filter(b::Vector, a::Vector, x::Vector)::Vector
 end
 
 function filtfilt(b::Vector, a::Vector, x::Vector)::Vector
+    missing
+end
+
+###############################################################################
+# Projektowanie filtrow                                                       #
+###############################################################################
+
+function firwin_lp_I(M::Integer, F0::Real)::Vector
+    # M - rzad filtra (order) 
+    # F0 - unormowana cz. graniczna tj. f0/fp
+
+    w = [0.5 + 0.5cospi(2n/(2M+1)) for n in -M÷2:M÷2]
+    h = [(n!=0) ? 2F0*sinc(2F0*n) : 2F0 for n in -M÷2:M÷2]
+
+    return h .* w
+end
+
+function firwin_hp_I(M::Integer, F0::Real)::Vector
+    w = [0.5 + 0.5cospi(2n/(2M+1)) for n in -M÷2:M÷2]
+    δ(n) = (n==0) ? 1 : 0
+    h = [(n!=0 ? δ(n)-2F0*sinc(2F0*n) : 1-2F0) for n in -M÷2:M÷2]
+    return h .* w
+end
+
+function firwin_bp_I(M::Integer, F1::Real, F2::Real)
+    missing
+end
+
+function firwin_bs_I(M::Int, F1::Real, F2::Real)::Vector
+    missing
+end
+
+function firwin_lp_II(M::Integer, F0::Real)::Vector
+    missing
+end
+
+function firwin_bp_II(M::Integer, F1::Real, F2::Real)::Vector
+    missing
+end
+
+function firwin_diff(M)
+    missing
+end
+
+function fir_I_LS(N::Integer, freq::Vector, amp::Vector, w::Vector)::Vector
+    missing
+end
+
+function fir_I_remez(M::Integer, A::Function, W::Function)
+    missing
+end
+
+function firwin_lp_kaiser_lp(f0, Δf, δ)
     missing
 end
 
