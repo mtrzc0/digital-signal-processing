@@ -427,11 +427,16 @@ function firwin_hp_I(M::Integer, F0::Real)::Vector
 end
 
 function firwin_bp_I(M::Integer, F1::Real, F2::Real)
-    missing
+    w = [0.5 + 0.5cospi(2n/(2M+1)) for n in -M÷2:M÷2]
+    h = [(n!=0 ? 2F2*sinc(F2*n)-2F1*sinc(F1*n) : 2(F2-F1)) for n in -M÷2:M÷2]
+    return h .* w
 end
 
 function firwin_bs_I(M::Int, F1::Real, F2::Real)::Vector
-    missing
+    δ(n) = (n==0) ? 1 : 0
+    w = [0.5 + 0.5cospi(2n/(2M+1)) for n in -M÷2:M÷2]
+    h = [(n!=0 ? δ(n)-2F2*sinc(F2*n)-2F1*sinc(F1*n) : 1-2(F2-F1)) for n in -M÷2:M÷2]
+    return h .* w
 end
 
 function firwin_lp_II(M::Integer, F0::Real)::Vector

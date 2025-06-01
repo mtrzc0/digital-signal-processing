@@ -16,9 +16,9 @@ end
 # firwin_lp_I_test()
 
 #problem 10.2
-function firwin_hp_i_test()
+function firwin_hp_I_test()
     m=20
-    fir = cps.firwin_hp_i(m, 0.4)
+    fir = cps.firwin_hp_I(m, 0.4)
     plot(fir,
      seriestype = :stem,
      marker     = (:circle, 5, :black),
@@ -26,12 +26,22 @@ function firwin_hp_i_test()
 end
 # firwin_hp_I_test()
 
-function firwin_bp_i_test()
-    m=20
-    fir = cps.firwin_bp_i(m, 0.4)
+function firwin_bp_I_test()
+    M=20
+    fir = CPS.firwin_bp_I(M, 0.4, 0.2)
     plot(fir,
      seriestype = :stem,
      marker     = (:circle, 5, :black),
      line       = (:solid, 1, :black))
 end
-firwin_bp_I_test()
+# firwin_bp_I_test()
+
+function firwin_bs_I_test()
+    M=20
+    fir = CPS.firwin_bs_I(M, 0.4, 0.2)
+    plot(fir,
+     seriestype = :stem,
+     marker     = (:circle, 5, :black),
+     line       = (:solid, 1, :black))
+end
+firwin_bs_I_test()
