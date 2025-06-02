@@ -3,6 +3,7 @@ include("CPS.jl")
 using Plots
 using Random
 using LinearAlgebra
+using CairoMakie
 
 #problem 10.1
 function firwin_lp_I_test()
@@ -26,6 +27,7 @@ function firwin_hp_I_test()
 end
 # firwin_hp_I_test()
 
+#problem 10.3
 function firwin_bp_I_test()
     M=20
     fir = CPS.firwin_bp_I(M, 0.4, 0.2)
@@ -36,6 +38,7 @@ function firwin_bp_I_test()
 end
 # firwin_bp_I_test()
 
+#problem 10.4
 function firwin_bs_I_test()
     M=20
     fir = CPS.firwin_bs_I(M, 0.4, 0.2)
@@ -44,4 +47,12 @@ function firwin_bs_I_test()
      marker     = (:circle, 5, :black),
      line       = (:solid, 1, :black))
 end
-firwin_bs_I_test()
+# firwin_bs_I_test()
+
+#problem 10.7
+function firwin_diff_test()
+    M=20
+    fir = CPS.firwin_diff(M)
+    stem(fir)
+end
+# firwin_diff_test()

@@ -447,8 +447,10 @@ function firwin_bp_II(M::Integer, F1::Real, F2::Real)::Vector
     missing
 end
 
-function firwin_diff(M)
-    missing
+function firwin_diff(M)::Vector
+    w = [0.5 + 0.5cospi(2n/(2M+1)) for n in -M÷2:M÷2]
+    h = [(n!=0) ? cospi(n)/n : 0 for n in -M÷2:M÷2]
+    return h .* w
 end
 
 function fir_I_LS(N::Integer, freq::Vector, amp::Vector, w::Vector)::Vector
