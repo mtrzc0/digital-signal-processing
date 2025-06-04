@@ -407,4 +407,17 @@ function rozwiazanie(;
     end
     return sum(angle.(k*H))/NF
 end
+# rozwiazanie()
+       
+# fala trojkatna
+function rozwiazanie(;
+    fp::Float64 = 348.34,
+    t1::Float64 = 7.9,
+    N::Int = 178,
+)
+    g(t) = 4*abs(t - floor(t+3/4)+1/4) - 1
+    x = range(start=t1, step=1/fp, length=N)
+    y = [3.5*g(2t-2.6) for t in x]
+    return sum(y)/N
+end
 rozwiazanie()
