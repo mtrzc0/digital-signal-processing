@@ -1,3 +1,6 @@
+using CairoMakie
+using LinearAlgebra
+
 # Z ciągłego sygnału f(t)∈Rf(t)∈R o paśmie ograniczonym od dołu i góry przez częstotliwość ∣B∣<12Δm∣B∣<2Δm1​, zostało pobrane 8080 próbek w równych odstępach czasu Δm=mn+1−mnΔm=mn+1​−mn​. Wartości sygnału oraz momenty w których zostały pobrane kolejne próbki, znajdują się odpowiednio w wektorze s∈R80s∈R80 oraz w wektorze m∈R80m∈R80, gdzie sn=f(mn)sn​=f(mn​). Na podstawie wektorów mm oraz ss, znajdź sygnał g(t)g(t), będący rekonstrukcją sygnału f(t)f(t) otrzymaną z wykorzystaniem wzoru interpolacyjnego Whittakera-Shannona. Jako rozwiązanie podaj sumę wartości sygnału g(t)g(t) dla momentów t∈R5t∈R5, to znaczy:
 
 function rozwiazanie(;
@@ -419,5 +422,113 @@ function rozwiazanie(;
     x = range(start=t1, step=1/fp, length=N)
     y = [3.5*g(2t-2.6) for t in x]
     return sum(y)/N
+end
+# rozwiazanie()
+       
+# dft, suma amplitud
+function rozwiazanie(;
+    fp::Int = 682,
+    x::Vector{ComplexF64} = ComplexF64[-0.35 + 0.22im, -0.68 - 1.13im, 0.69 + 0.08im, 0.24 - 0.56im, 0.03 + 0.22im, -0.08 + 0.33im, -0.0 + 0.71im, -0.15 + 0.87im, 0.74 - 0.19im, 0.75 + 1.81im, 0.89 - 0.66im, 0.15 - 0.36im, 0.33 - 0.75im, 0.22 - 0.59im, 0.71 - 0.62im, -0.09 + 0.63im, -0.1 + 0.49im, -0.16 - 0.3im, 0.25 + 1.87im, -0.17 + 0.11im, -1.15 - 0.24im, 0.55 + 0.76im, -0.26 + 0.18im, -0.55 - 0.18im, 1.34 - 0.02im, -0.56 - 0.26im, 1.23 + 0.46im, 0.17 + 0.34im, -0.7 - 0.65im, -0.91 - 0.81im, -0.29 - 0.3im],
+    f::Vector{Int} = [-176, -154, 66, 110, 176, 198, 242],
+)
+    N = length(x)
+    @show K = mod.(round.(Int, f ./ fp * N), N)
+    dft(x) = [sum(x[n]*cispi(-2*(n-1)*(k-1)/length(x)) for n in 1:N) for k in K]
+    @show X = dft(x)
+    return sum(abs.(X)/N)
+end
+# rozwiazanie()
+          
+#stabilnosc
+# function rozwiazanie(;
+#     z::Vector{ComplexF64} = ComplexF64[-0.0005517005192124811 - 0.9999998478132569im, 0.8384558537399533 + 0.5449695233030982im, -0.0005517005192124811 + 0.9999998478132569im, 0.8384558537399533 - 0.5449695233030982im, 1.0 + 0.0im, -1.0 + 0.0im],
+#     p::Vector{ComplexF64} = ComplexF64[0.6376994025137948 + 0.7279879272564632im, 0.3858660102221075 - 0.8800548783996986im, 0.6376994025137948 - 0.7279879272564632im, 0.3858660102221075 + 0.8800548783996986im, 0.5017642222480565 - 0.7733268501765889im, 0.5017642222480565 + 0.7733268501765889im],
+#     k::Float64 = 0.007534713625234139,
+# )
+#     for pole in p
+#         if abs(pole) > 1
+#             return -1
+#         end
+#     end
+#     for pole in p
+#         if abs(pole) == 1
+#             return 0
+#         end
+#     end
+#     return 1
+# end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Int = 1617,
+    x::Vector{ComplexF64} = ComplexF64[0.73 + 0.49im, -0.24 - 0.62im, 0.63 + 0.85im, 0.87 + 0.02im, -0.76 - 0.09im, -1.44 - 0.36im, 0.27 - 1.22im, 0.19 - 1.57im, -1.44 - 1.36im, 0.44 + 0.35im, -0.95 + 0.1im, -0.65 + 0.8im, -0.34 + 0.41im, 0.35 - 0.56im, -0.83 + 1.06im, 0.18 - 1.22im, -0.64 - 0.77im, -0.13 - 0.59im, 0.92 - 0.51im, -1.08 - 0.53im, 0.49 - 0.82im, -0.29 - 0.21im, -0.18 + 0.94im, -0.57 - 0.71im, -0.55 - 0.25im, 0.89 - 0.08im, 0.21 + 0.12im, 0.54 + 0.1im, -0.05 + 0.2im, -1.96 + 0.01im, 0.01 - 0.3im, -0.18 - 0.99im, -1.11 + 1.29im],
+    f::Vector{Int} = [-294, 588, 147],
+)
+    N = length(x)
+    @show K = mod.(round.(Int, f ./ fp * N), N)
+    dft(x) = [sum(x[n]*cispi(-2*(n-1)*(k-1)/length(x)) for n in 1:N) for k in K]
+    @show X = dft(x)
+    #TODO
+    return sum(abs.(X)/N)
+end
+# rozwiazanie()
+
+# transmitancja, zera i bieguny
+function rozwiazanie(;
+    zz::Vector{ComplexF64} = ComplexF64[0.6372786378076709 - 0.7706334652699683im, 0.1966960130534983 + 0.9804645217695834im, 0.6372786378076709 + 0.7706334652699683im, 0.1966960130534983 - 0.9804645217695834im, 0.44338445406409877 + 0.8963315379335266im, 0.44338445406409877 - 0.8963315379335266im],
+    pp::Vector{ComplexF64} = ComplexF64[-0.36224162461493203 + 0.5983744930699401im, 0.7716708794401513 - 0.33916798101897755im, -0.36224162461493203 - 0.5983744930699401im, 0.7716708794401513 + 0.33916798101897755im, -0.0864628177533698 + 0.0im, 0.5102848542524746 + 0.0im],
+    k::Float64 = 0.1517558578114602,
+    F::Vector{Float64} = [0.02, 0.04, 0.38, 0.38, 0.4],
+)
+    M=length(zz)
+    K=length(pp)
+    N=length(F)
+
+    h = ones(ComplexF64, N)
+    for n in 1:N
+        for m in 1:M
+            h[n] *= 1-zz[m]/cispi(2*F[n])
+        end
+        for k in 1:K
+            h[n] /= 1-pp[k]/cispi(2*F[n])
+        end
+    end 
+    return sum(abs.(k*h)/N)
+end
+# rozwiazanie()
+
+# interpolacja Whittakera-Shannona
+function rozwiazanie(;
+    m::Vector{Float64} = [1.8, 1.8012, 1.8024, 1.8036, 1.8048, 1.806, 1.8072, 1.8084, 1.8096, 1.8108, 1.812, 1.8132, 1.8144, 1.8156, 1.8168, 1.818, 1.8192, 1.8204, 1.8216, 1.8228, 1.824, 1.8252, 1.8264, 1.8276, 1.8288, 1.83, 1.8312, 1.8324, 1.8336, 1.8348, 1.836, 1.8372, 1.8384, 1.8396, 1.8408, 1.842, 1.8432, 1.8444, 1.8456, 1.8468, 1.848, 1.8492, 1.8504, 1.8516, 1.8528, 1.854, 1.8552, 1.8564, 1.8576, 1.8588, 1.86, 1.8612, 1.8624, 1.8636, 1.8648, 1.866, 1.8672, 1.8684, 1.8696, 1.8708, 1.872, 1.8732, 1.8744, 1.8756, 1.8768, 1.878, 1.8792, 1.8804, 1.8816, 1.8828, 1.884, 1.8852, 1.8864, 1.8876, 1.8888, 1.89, 1.8912, 1.8924, 1.8936, 1.8948, 1.896, 1.8972, 1.8984, 1.8996, 1.9008, 1.902],
+    s::Vector{Float64} = [0.9849, 0.3282, 0.9121, 0.1161, 0.4155, 0.3419, 0.4713, 0.7966, 0.6997, 0.9185, 0.5882, 0.1459, 0.7108, 0.1534, 0.0316, 0.9725, 0.4985, 0.3329, 0.3119, 0.8901, 0.8632, 0.8592, 0.3011, 0.791, 0.5452, 0.9737, 0.6542, 0.9819, 0.0976, 0.7204, 0.8411, 0.0201, 0.8441, 0.021, 0.0082, 0.4691, 0.7337, 0.3647, 0.6218, 0.3003, 0.792, 0.9259, 0.9987, 0.4303, 0.3571, 0.7519, 0.8476, 0.0383, 0.6423, 0.6081, 0.5902, 0.5059, 0.2351, 0.0959, 0.8386, 0.0934, 0.7476, 0.9532, 0.8881, 0.5997, 0.7718, 0.4048, 0.3127, 0.9879, 0.6279, 0.8509, 0.4474, 0.7469, 0.0571, 0.8638, 0.6766, 0.3933, 0.762, 0.5014, 0.1918, 0.0477, 0.3886, 0.8383, 0.2511, 0.1214, 0.8887, 0.8797, 0.2808, 0.8135, 0.955, 0.3849],
+    t::Vector{Float64} = [1.83612, 1.8786, 1.85172, 1.87476, 1.86684, 1.85292, 1.81476, 1.81212, 1.81212, 1.86828, 1.806, 1.85832, 1.83192],
+)
+    ws = [sum(s[n]*sinc((t[i]-m[n])/(m[2]-m[1]))) for n in eachindex(s) for i in eachindex(t)]
+    return sum(ws)
+end
+# rozwiazanie()
+
+function rozwiazanie(;
+    b::Vector{Float64} = [1.7536549719840665e-7, 0.0, -1.05219298319044e-6, 0.0, 2.6304824579761e-6, 0.0, -3.507309943968133e-6, 0.0, 2.6304824579761e-6, 0.0, -1.05219298319044e-6, 0.0, 1.7536549719840665e-7],
+    a::Vector{Float64} = [1.0, -5.505694192165391, 18.030017993408308, -40.24823881336225, 68.34799776211682, -90.4722151684874, 96.14190988223578, -81.76012331863264, 55.81795900812245, -29.70323127063752, 12.024170722518782, -3.3177893557296083, 0.5446010675601196],
+    F::Vector{Float64} = [0.03, 0.21, 0.21, 0.33, 0.34, 0.47],
+)
+    M=length(b)
+    K=length(a)
+    N=length(F)
+    h=zeros(ComplexF64, N)
+
+    for n in 1:N
+        licz=0
+        mian=0
+        for m in 1:M
+            licz += b[m].*cispi(-2*F[n]*(m-1))
+        end
+        for k in 2:K
+            mian += a[k].*cispi(-2*F[n]*(k-1))
+        end
+        h[n] = licz / (mian+1)
+    end
+    return sum(abs.(h))/N
 end
 rozwiazanie()
