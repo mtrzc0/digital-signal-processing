@@ -36,3 +36,16 @@ function rozwiazanie(;
     return sum(y)/N
 end
 # rozwiazanie()
+
+# fala piloksztaltna
+function rozwiazanie(;
+    fp::Float64 = 435.66,
+    t1::Float64 = -4.54,
+    N::Int = 905,
+)
+    g(t)=-2*(t - floor(t+1/2))
+    x=range(start=t1,step=1/fp,length=N)
+    y=[5.1*g(1.2*t-3.3) for t in x]
+    return sum(y)/N
+end
+rozwiazanie()
