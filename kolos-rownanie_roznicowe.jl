@@ -138,3 +138,30 @@ function rozwiazanie(;
     return sqrt(sum(y .* y)/length(y))
 end
 # rozwiazanie()
+
+function rozwiazanie(;
+    b::Vector{Float64} = [0.15220776723622292, -0.6306612471456423, 1.1561685097078895, -1.1561685097078895, 0.6306612471456425, -0.15220776723622292],
+    a::Vector{Float64} = [1.0, -1.1397725742429585, 1.51371415095299, -0.3171939570028648, 0.16876931161974204, 0.2613749456390448],
+    x::Vector{Float64} = [-0.12, -0.57, -0.18, -0.44, -0.71, -0.46, -0.38, 0.9, 0.43, 0.28, -0.41, 0.73, -0.7, -0.24, -0.63, -0.06, -0.85, 0.07, 0.76, -0.37, 0.99, 0.21, 0.26, -0.16, -0.01, -0.66, 0.48],
+    L::Int = 54,
+)
+    M=length(b)
+    K=length(a)
+    N=length(x)
+    y=zeros(Float64, L)
+
+    for n in 1:L
+        for m in 1:M
+            if 0 < n-m+1 <= N
+                y[n]+=b[m]*x[n-m+1]
+            end
+        end
+        for k in 2:K
+            if 0 < n-k+1 <= L
+                y[n]-=a[k]*y[n-k+1]
+            end
+        end
+    end
+    return sum(y .* y)
+end
+rozwiazanie()

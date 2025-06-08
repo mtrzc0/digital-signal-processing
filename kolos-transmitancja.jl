@@ -95,3 +95,53 @@ function rozwiazanie(;
     return sum(abs.(h))/N
 end
 # rozwiazanie()
+
+function rozwiazanie(;
+    b::Vector{Float64} = [0.6668547023844128, -1.720764471909391, 3.4806618241912046, -3.8658925116288825, 3.4806618241912037, -1.720764471909391, 0.6668547023844127],
+    a::Vector{Float64} = [1.0, -2.2575274288819127, 3.948876910415752, -3.813445803637163, 2.951472093696976, -1.2364482229285918, 0.3946840490385092],
+    F::Vector{Float64} = [0.14, 0.43, 0.48, 0.5],
+)
+    M=length(b)
+    K=length(a)
+    N=length(F)
+    h=zeros(ComplexF64, N)
+
+    for n in 1:N
+        mian=0
+        licz=0
+        for m in 1:M
+            licz+=b[m].*cispi(-2*F[n]*(m-1))
+        end
+        for k in 2:K
+            mian+=a[k].*cispi(-2*F[n]*(k-1))
+        end
+        h[n] = licz/(mian +1)
+    end
+    return sum(abs.(h))/N
+end
+rozwiazanie()
+
+# function rozwiazanie(;
+#     b::Vector{Float64} = [5.566396272183253e-7, 0.0, -3.339837763309952e-6, 0.0, 8.34959440827488e-6, 0.0, -1.1132792544366507e-5, 0.0, 8.34959440827488e-6, 0.0, -3.339837763309952e-6, 0.0, 5.566396272183253e-7],
+#     a::Vector{Float64} = [1.0, -6.312470431235184, 22.280704254930217, -53.26748029453974, 95.22115428099832, -131.95980405673234, 145.1934458068807, -127.20440344811901, 88.48086156410804, -47.71128142721598, 19.236501494991767, -5.2531773469685685, 0.802333642696997],
+#     F::Vector{Float64} = [0.0, 0.06, 0.24, 0.34, 0.35, 0.41],
+# )
+#     M=length(b)
+#     K=length(a)
+#     N=length(F)
+#     h=zeros(ComplexF64, N)
+
+#     for n in 1:N
+#         licz=0
+#         mian=0
+#         for m in 1:M
+#             licz+=b[m].*cispi(-2*F[n]*m)
+#         end
+#         for k in 2:K
+#             mian+=a[k].*cispi(-2*F[n]*k)
+#         end
+#         h[n]=licz/(mian+1)
+#     end
+#     return sum(abs.(h))/N
+# end
+# rozwiazanie()
