@@ -160,4 +160,14 @@ function rozwiazanie(;
     end
     return s
 end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Int = 820,
+    x::Vector{ComplexF64} = ComplexF64[0.56 + 0.4im, 1.2 - 0.29im, -0.18 - 0.94im, 0.1 + 0.63im, -1.19 + 0.8im, -0.38 + 0.21im, -0.3 + 0.73im, 0.66 + 0.39im, 0.94 - 1.17im, 0.62 - 0.39im, -0.62 + 0.91im, -0.53 + 0.23im, -0.91 + 0.71im, 0.32 - 0.54im, 1.18 + 1.0im, 1.27 - 0.06im, -0.2 + 1.0im, -0.68 - 0.83im, 0.49 - 0.81im, 0.58 + 0.54im, 0.64 + 1.46im, -0.58 + 0.15im, 0.07 + 0.31im, -0.71 + 0.34im, 0.54 + 0.58im, -1.47 + 0.51im, 0.15 + 1.0im, -0.01 - 0.58im, 0.63 + 0.19im, -0.28 - 1.99im, 0.24 - 1.48im, 0.52 - 0.8im, 0.81 + 0.33im, 0.14 - 0.42im, 0.31 - 0.59im, -0.0 + 0.2im, 0.69 + 0.21im, -0.92 - 0.44im, -0.49 + 0.69im, 0.66 + 0.2im, -1.31 - 0.55im],
+    f::Vector{Int} = [-320, -280, -200, -40],
+)
+    N=length(x)
+    return sum(abs.([sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1]) for fi in f])/N)
+end
 rozwiazanie()

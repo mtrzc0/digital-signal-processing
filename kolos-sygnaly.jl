@@ -85,3 +85,15 @@ function rozwiazanie(;
     return sum(y)/N
 end
 # rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 471.46,
+    t1::Float64 = 0.28,
+    N::Int = 922,
+)
+    g(t) = sign(sin(2π*t))
+    x=range(start=t1, step=1/fp, length=N)
+    y = [3*g(2.5*t-1) for t in x]
+    return sum(y)/N
+end
+rozwiazanie()

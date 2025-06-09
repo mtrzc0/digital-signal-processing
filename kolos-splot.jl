@@ -7,10 +7,11 @@ function rozwiazanie(;
     M=length(h)
     K=N+M+1
     y=zeros(Float64, K)
+
     for n in 1:K
         for m in 1:M
-            if n-m > 0 && n-m+1<=N
-                y[n] = y[n] + h[m]*x[n-m+1]
+            if 0 < n-m+1 <= N 
+                y[n]+=h[m]*x[n-m+1]
             end
         end
     end
@@ -29,11 +30,31 @@ function rozwiazanie(;
 
     for n in 1:K
         for m in 1:M 
-            if n-m > 0 && n-m+1 <= N
-                y[n] = y[n] + h[m]*x[n-m+1]
+            if 0 < n-m+1 <= N
+                y[n]+=h[m]*x[n-m+1]
             end
         end
     end
     return sqrt(sum(y .* y)/K)
 end
-rozwiazanie()
+# rozwiazanie()
+
+function rozwiazanie(;
+    x::Vector{Float64} = [-3.7, -3.08, -0.03, -4.52, 1.96, -2.09, -0.57, 4.51, -2.29, -3.16, -0.33, 0.09, 4.28, -1.48, -2.41, 0.25, -4.49, -4.92, -2.37, -3.47, 4.74, 1.43, -2.83, 1.64, -3.8, -4.85, 0.3, -4.99, -3.69, -1.57, -0.28, -2.36, -4.77, 0.97, -0.35, -0.26, 0.61, -3.76, -3.19, 4.72, -2.3, 0.0, 1.58, -0.13, 2.75, -4.13, -3.22, -3.15, 2.5, -0.71, 3.49, -2.69, -2.04, -2.29, -2.43, 3.01, 2.17, 2.21, -4.16, -1.48, -0.69, -3.52, -3.6],
+    h::Vector{Float64} = [-0.64, 4.88, -0.42, -1.42, 0.06, -3.67, -3.69, -2.31, 4.06, -1.02, -2.1],
+)
+    N=length(x)
+    M=length(h)
+    K=M+N-1
+    y=zeros(Float64, K)
+
+    for n in 1:K
+        for m in 1:M
+            if 0 < n-m+1 <= N 
+                y[n] += h[m]*x[n-m+1]
+            end
+        end
+    end
+    return sum(y)/length(y)
+end
+# rozwiazanie()
