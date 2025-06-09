@@ -48,4 +48,40 @@ function rozwiazanie(;
     y=[5.1*g(1.2*t-3.3) for t in x]
     return sum(y)/N
 end
-rozwiazanie()
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 468.7,
+    t1::Float64 = -5.99,
+    N::Int = 733,
+)
+    g(t) = sign(sin(2π*t)) # bipolarna fala prostokatna git?
+    x=range(start=t1, step=1/fp, length=N)
+    y=[1.6*g(4.3*t-1.1) for t in x]
+    return sum(y)/N
+end
+# rozwiazanie()
+          
+function rozwiazanie(;
+    fp::Float64 = 361.14,
+    t1::Float64 = -4.16,
+    N::Int = 162,
+)
+    g(t) = 2(t-floor(t+1/2))
+    x=range(start=t1, step=1/fp, length=N)
+    y=[1.4*g(t-3.2) for t in x]
+    return sum(y)/N
+end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 471.46,
+    t1::Float64 = 0.28,
+    N::Int = 922,
+)
+    g(t) = sign(sin(2π*t))
+    x=range(start=t1, step=1/fp, length=N)
+    y=[3*g(2.5*t-1) for t in x]
+    return sum(y)/N
+end
+# rozwiazanie()
