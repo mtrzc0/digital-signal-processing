@@ -120,4 +120,28 @@ function rozwiazanie(;
     y=[3.4*g(3.6*t-3) for t in x]
     return sum(y)/N
 end
-rozwiazanie()
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 406.56,
+    t1::Float64 = -2.67,
+    N::Int = 643,
+)
+    g(t)=4*abs(t+1/4-floor(t+3/4))-1
+    x=range(start=t1, step=1/fp, length=N)
+    y=[0.6*g(4.7*t-4.7) for t in x]
+    return sum(y)/N
+end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 352.67,
+    t1::Float64 = 0.09,
+    N::Int = 237,
+)
+    g(t)=sign(sin(2π*t))
+    x=range(start=t1, step=1/fp, length=N)
+    y=[3.3*g(4.1*t-4.2) for t in x]
+    return sum(y)/N
+end
+# rozwiazanie()

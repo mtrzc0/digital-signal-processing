@@ -200,4 +200,4 @@ function rozwiazanie(;
     N=length(x)
     return sum([angle.(sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1])/N) for fi in f])
 end
-rozwiazanie()
+# rozwiazanie()
