@@ -145,3 +145,27 @@ function rozwiazanie(;
     return sum(y)/N
 end
 # rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 159.74,
+    t1::Float64 = -1.74,
+    N::Int = 99,
+)
+    g(t)=4*abs(t+1/4-floor(t+3/4))-1
+    x=range(start=t1, step=1/fp, length=N)
+    y=[3.1*g(3.7*t-1.5) for t in x]
+    return sum(y)/N
+end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 435.66,
+    t1::Float64 = -4.54,
+    N::Int = 905,
+)
+    g(t) = -2*(t-floor(t+1/2))
+    x=range(start=t1, step=1/fp, length=N)
+    y=[5.1*g(1.2*t-3.3) for t in x]
+    return sum(y)/N
+end
+rozwiazanie()

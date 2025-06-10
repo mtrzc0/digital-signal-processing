@@ -346,5 +346,19 @@ function rozwiazanie(;
     k::Float64 = 0.03839993839240795,
     F::Vector{Float64} = [0.0, 0.09, 0.14, 0.18, 0.48],
 )
-    missing
+    M=length(zz)
+    K=length(pp)
+    N=length(F)
+    h=ones(ComplexF64, N)
+
+    for n in 1:N
+        for m in 1:M
+            h[n]*=1-zz[m]*cispi(-2*F[n])
+        end
+        for k in 1:K
+            h[n]/=1-pp[k]*cispi(-2*F[n])
+        end
+    end
+    return sum(angle.(k*h))/N
 end
+# rozwiazanie()
