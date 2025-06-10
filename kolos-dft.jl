@@ -180,4 +180,24 @@ function rozwiazanie(;
     N=length(x)
     return sum([angle.(sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1]))/N for fi in f])
 end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Int = 494,
+    x::Vector{ComplexF64} = ComplexF64[0.45 - 1.75im, 0.47 + 0.96im, 0.14 + 0.2im, -0.33 - 1.36im, 0.13 + 0.39im, 1.02 + 0.53im, 0.38 + 0.4im, -0.43 - 0.32im, 0.74 + 1.19im, 0.05 + 0.89im, 0.14 - 0.44im, 0.13 - 0.96im, 1.63 + 2.29im, 0.59 + 0.91im, -1.53 + 0.06im, 0.36 - 0.3im, -0.6 - 0.03im, -0.04 + 0.13im, -0.42 + 0.29im, -0.08 + 0.26im, 1.32 - 0.83im, -0.96 - 0.77im, 0.41 + 0.18im, 0.73 - 0.19im, 0.3 - 0.77im, -0.44 + 1.46im],
+    f::Vector{Int} = [-171, -152, -76, 0, 57, 114],
+)
+    N=length(x)
+    return sum([abs.(sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1])/N) for fi in f])
+end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Int = 551,
+    x::Vector{ComplexF64} = ComplexF64[1.0 - 0.82im, -0.95 - 0.0im, -0.22 + 0.58im, -0.25 - 1.63im, -0.42 + 0.58im, 0.14 + 0.53im, 0.33 + 0.06im, -0.56 - 0.34im, 0.23 - 0.8im, 0.72 - 0.78im, 1.22 + 0.19im, 0.8 + 1.06im, -1.18 - 0.64im, -0.06 + 0.63im, 0.79 + 0.07im, 1.74 + 0.62im, -0.12 - 0.36im, 0.18 - 0.45im, 0.27 + 0.61im, -0.25 + 0.25im, -1.45 - 1.02im, 0.19 - 1.13im, 1.23 - 0.3im, -1.0 + 0.14im, -1.74 + 0.47im, 0.31 + 0.08im, 0.72 + 0.66im, -1.15 + 1.2im, -0.79 + 0.32im],
+    f::Vector{Int} = [-76, -38, 114, 228],
+)
+    N=length(x)
+    return sum([angle.(sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1])/N) for fi in f])
+end
 rozwiazanie()

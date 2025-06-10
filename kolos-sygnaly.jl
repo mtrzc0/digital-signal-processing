@@ -109,3 +109,15 @@ function rozwiazanie(;
     return sum(y)/N
 end
 # rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 498.99,
+    t1::Float64 = 9.38,
+    N::Int = 504,
+)
+    g(t)=2*(t-floor(t+1/2))
+    x=range(start=t1, step=1/fp, length=N)
+    y=[3.4*g(3.6*t-3) for t in x]
+    return sum(y)/N
+end
+rozwiazanie()
