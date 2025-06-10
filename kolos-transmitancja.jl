@@ -135,10 +135,10 @@ function rozwiazanie(;
         licz=0
         mian=0
         for m in 1:M
-            licz+=b[m].*cispi(-2*F[n]*m)
+            licz+=b[m].*cispi(-2*F[n]*(m-1))
         end
         for k in 2:K
-            mian+=a[k].*cispi(-2*F[n]*k)
+            mian+=a[k].*cispi(-2*F[n]*(k-1))
         end
         h[n]=licz/(mian+1)
     end
@@ -190,4 +190,54 @@ function rozwiazanie(;
     end
     return sum(abs.(k*h))/N
 end
-rozwiazanie()
+# rozwiazanie()
+
+function rozwiazanie(;
+    b::Vector{Float64} = [0.04314525874746985, -0.2588715524848191, 0.6471788812120477, -0.862905174949397, 0.6471788812120477, -0.2588715524848191, 0.04314525874746985],
+    a::Vector{Float64} = [1.0, -0.38574424913684624, 1.3013655603245946, 0.13270353683808567, 0.5561248128464324, 0.17251600265356282, 0.160210615122618],
+    F::Vector{Float64} = [0.15, 0.16, 0.24],
+)
+    M=length(b)
+    K=length(a)
+    N=length(F)
+    h=zeros(ComplexF64, N)
+
+    for n in 1:N
+        licz=0
+        mian=0
+        for m in 1:M
+           licz+=b[m].*cispi(-2*F[n]*(m-1)) 
+        end
+        for k in 2:K
+            mian+=a[k].*cispi(-2*F[n]*(k-1))
+        end
+        h[n]=licz/(1+mian)
+    end
+    return sum(angle.(h))/N
+end
+# rozwiazanie()
+
+function rozwiazanie(;
+    b::Vector{Float64} = [0.009835403572646848, -1.875671518477884e-5, 0.010373051324321612, 0.010373051324321616, -1.8756715184778463e-5, 0.009835403572646846],
+    a::Vector{Float64} = [1.0, -3.043987586489922, 3.967544846014289, -2.6908248277859954, 0.9430865718564958, -0.13543960723130033],
+    F::Vector{Float64} = [0.01, 0.03, 0.11, 0.29],
+)
+    M=length(b)
+    K=length(a)
+    N=length(F)
+    h=zeros(ComplexF64, N)
+
+    for n in 1:N
+        licz=0
+        mian=0
+        for m in 1:M
+           licz+=b[m]*cispi(-2*F[n]*(m-1)) 
+        end
+        for k in 2:K
+            mian+=a[k]*cispi(-2*F[n]*(k-1))
+        end
+        h[n]=licz/(1+mian)
+    end
+    return sum(abs.(h))/N
+end
+# rozwiazanie()

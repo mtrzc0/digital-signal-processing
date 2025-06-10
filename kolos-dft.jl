@@ -106,7 +106,7 @@ function rozwiazanie(;
     end
     return s
 end
-# # rozwiazanie()
+# rozwiazanie()
           
 function rozwiazanie(;
     fp::Int = 572,
@@ -168,6 +168,16 @@ function rozwiazanie(;
     f::Vector{Int} = [-320, -280, -200, -40],
 )
     N=length(x)
-    return sum(abs.([sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1]) for fi in f])/N)
+    return sum([abs.(sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1])/N) for fi in f])
+end
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Int = 858,
+    x::Vector{ComplexF64} = ComplexF64[-0.39 - 0.57im, 0.22 + 0.36im, 0.97 - 0.31im, -0.2 + 0.28im, -0.8 - 1.34im, 0.8 + 0.26im, 0.63 + 0.21im, -0.4 + 0.71im, 0.93 + 0.04im, 0.02 - 0.47im, 0.07 + 1.91im, 0.14 + 0.23im, 0.56 + 0.79im, 0.73 + 0.13im, 0.35 - 0.81im, -0.12 - 0.53im, 1.15 - 0.43im, 0.03 - 1.24im, 0.87 + 0.3im, -0.06 - 0.34im, 0.04 + 0.5im, 0.35 + 1.21im, 0.37 - 0.73im, 0.05 + 0.54im, 0.03 + 0.78im, 0.15 + 0.02im, -0.17 - 0.17im, 0.32 + 0.49im, -0.01 + 0.63im, 1.27 - 0.59im, -1.07 - 0.34im, 2.2 + 0.5im, 0.26 - 0.67im, 0.27 + 0.44im, -0.82 + 0.64im, -0.62 - 0.96im, -0.03 - 0.25im, -1.35 + 0.14im, 0.16 + 0.3im],
+    f::Vector{Int} = [-308, -286, -242, -154, -66, 242, 330],
+)
+    N=length(x)
+    return sum([angle.(sum([x[n+1]*cispi(-2*fi/fp*n) for n in 0:N-1]))/N for fi in f])
 end
 rozwiazanie()

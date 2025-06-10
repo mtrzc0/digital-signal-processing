@@ -74,4 +74,23 @@ function rozwiazanie(;
     end
     return 1
 end
+# rozwiazanie()
+
+function rozwiazanie(;
+    z::Vector{ComplexF64} = ComplexF64[-1.0 + 0.0im, -1.0 + 0.0im, -1.0 + 0.0im, -1.0 + 0.0im, -1.0 + 0.0im],
+    p::Vector{ComplexF64} = ComplexF64[0.26243533330430674 + 0.693265210762646im, 0.26243533330430674 - 0.693265210762646im, 1.5669479036478788 + 2.5582560988402854im, 0.19233484328103675 - 0.3140128556269943im, 0.17452793889436508 + 0.0im],
+    k::Float64 = 0.019847795197400566,
+)
+    for pole in p    
+        if abs(pole)>1
+            return -1
+        end
+    end
+    for pole in p
+        if abs(pole)==1
+            return 0
+        end
+    end
+    return 1
+end
 rozwiazanie()

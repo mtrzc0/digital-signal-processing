@@ -96,4 +96,16 @@ function rozwiazanie(;
     y = [3*g(2.5*t-1) for t in x]
     return sum(y)/N
 end
-rozwiazanie()
+# rozwiazanie()
+
+function rozwiazanie(;
+    fp::Float64 = 434.88,
+    t1::Float64 = 0.92,
+    N::Int = 826,
+)
+    g(t)=-2*(t-floor(t+1/2))
+    x=range(start=t1, step=1/fp, length=N)
+    y=[3.9*g(0.3*t-2) for t in x]
+    return sum(y)/N
+end
+# rozwiazanie()
